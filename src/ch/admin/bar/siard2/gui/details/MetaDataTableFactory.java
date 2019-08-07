@@ -357,6 +357,33 @@ public abstract class MetaDataTableFactory
   } /* newMetaCandidateKeysTableView */
   
   /*------------------------------------------------------------------*/
+  /** create the table view for the triggers of a table.
+   * @param mt table meta data.
+   * @return TableView listing the triggers of the table.
+   */
+  public static ObjectListTableView newMetaTriggersTableView(MetaTable mt)
+  {
+    SiardBundle sb = SiardBundle.getSiardBundle();
+    List<String> listHeaders = Arrays.asList(
+      sb.getProperty("header.metatriggers.row"),
+      sb.getProperty("header.metatriggers.name"),
+      sb.getProperty("header.metatriggers.actiontime"),
+      sb.getProperty("header.metatriggers.triggeredevent"),
+      sb.getProperty("header.metatriggers.triggeraction"));
+    ObjectListTableView oltv = new ObjectListTableView(listHeaders);
+    /* table data */
+    for (int iTrigger = 0; iTrigger < mt.getMetaTriggers(); iTrigger++)
+    {
+      MetaTrigger mtr = mt.getMetaTrigger(iTrigger);
+
+      List<Object> listRow = Arrays.asList((Object)iTrigger,
+        mtr.getName(),mtr.getActionTime(),mtr.getTriggerEvent(),mtr.getTriggeredAction());
+      oltv.getItems().add(listRow);
+    }
+    return oltv;
+  } /* newMetaForeignKeysTableView */
+  
+  /*------------------------------------------------------------------*/
   /** create the table view for the foreign keys of a table.
    * @param mt table meta data.
    * @return TableView listing the foreign keys of the table.

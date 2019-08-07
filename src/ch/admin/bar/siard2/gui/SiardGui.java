@@ -100,21 +100,6 @@ public class SiardGui extends Application
   { 
     _archive = archive;
   }
-
-  public StopWatch swOpen = StopWatch.getInstance();
-  
-  /*------------------------------------------------------------------*/
-  /** logPerformance prints memory and stop watches.
-   */
-  public void logPerformance()
-  {
-    Runtime rt = Runtime.getRuntime();
-    _il.info(
-      "GUI: Used Memory: "+StopWatch.formatLong(rt.totalMemory() - rt.freeMemory())+
-      ", Free Memory: "+StopWatch.formatLong(rt.freeMemory())+
-      ", Open: "+swOpen.formatMs()+
-      ", Valid: "+((ArchiveImpl)getArchive())._swValid.formatMs());
-  } /* logPerformance */
   
   /*------------------------------------------------------------------*/
   /** setTitle sets the title with file name and change indicator */

@@ -100,6 +100,8 @@ public class DetailsScrollPane
         _oltv = MetaDataTableFactory.newMetaCandidateKeysTableView(mt);
       else if (_clsTableData.equals(MetaForeignKey.class))
         _oltv = MetaDataTableFactory.newMetaForeignKeysTableView(mt);
+      else if (_clsTableData.equals(MetaTrigger.class))
+        _oltv = MetaDataTableFactory.newMetaTriggersTableView(mt);
     }
     else if (_oMetaData instanceof MetaView)
     {

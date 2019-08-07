@@ -321,6 +321,38 @@ public class ArchiveTreeView
   } /* class MetaViewsTreeItem */
 
   /*====================================================================*/
+  private class MetaTriggerTreeItem
+    extends DynamicTreeItem<Object>
+  {
+    public MetaTriggerTreeItem(MetaTrigger mtr)
+    {
+      super(mtr);
+    } /* constructor */
+    @Override
+    public void addChildren()
+    {
+      // foreign key has no children
+    } /* addChildren */
+  } /* class MetaForeignKeyTreeItem */
+  
+  /*==================================================================*/
+  private class MetaTriggersTreeItem
+    extends DynamicTreeItem<Object>
+  {
+    public MetaTriggersTreeItem(MetaTable mt)
+    {
+      super(mt);
+    } /* constructor */
+    @Override
+    protected void addChildren()
+    {
+      MetaTable mt = (MetaTable)getValue();
+      for (int iMetaTrigger = 0; iMetaTrigger < mt.getMetaTriggers(); iMetaTrigger++)
+    	  getChildren().add(new MetaTriggerTreeItem(mt.getMetaTrigger(iMetaTrigger)));
+    } /* addChildren */
+  } /* class MetaTriggersTreeItem */
+  
+  /*====================================================================*/
   private class MetaForeignKeyTreeItem
     extends DynamicTreeItem<Object>
   {
@@ -438,6 +470,8 @@ public class ArchiveTreeView
         getChildren().add(new MetaCandidateKeysTreeItem(mt));
       if (mt.getMetaForeignKeys() > 0)
         getChildren().add(new MetaForeignKeysTreeItem(mt));
+      if (mt.getMetaTriggers() > 0)
+          getChildren().add(new MetaTriggersTreeItem(mt));
     } /* addChildren */
   } /* class MetaTableTreeItem */
   
@@ -606,7 +640,7 @@ public class ArchiveTreeView
     @Override
     public void updateItem(Object oItem, boolean bEmpty)
     {
-     super.updateItem(oItem,bEmpty);
+      super.updateItem(oItem,bEmpty);
       String sText = "";
       if (!bEmpty)
       {
@@ -636,6 +670,8 @@ public class ArchiveTreeView
             sText = "attributes ("+String.valueOf(ti.getChildren().size())+")";
           else if (ti instanceof MetaColumnsTreeItem)
             sText = "columns ("+String.valueOf(ti.getChildren().size())+")";
+          else if (ti instanceof MetaTriggersTreeItem)
+              sText = "trigger ("+String.valueOf(ti.getChildren().size())+")";
           else if (ti instanceof MetaCandidateKeysTreeItem)
             sText = "candidate keys ("+String.valueOf(ti.getChildren().size())+")";
           else if (ti instanceof MetaForeignKeysTreeItem)
@@ -930,6 +966,8 @@ public class ArchiveTreeView
           clsTableData = MetaUniqueKey.class;
         else if (tiNew instanceof MetaForeignKeysTreeItem)
           clsTableData = MetaForeignKey.class;
+        else if (tiNew instanceof MetaTriggersTreeItem)
+          clsTableData = MetaTrigger.class;
         else if (tiNew instanceof MetaParametersTreeItem)
           clsTableData = MetaParameter.class;
         else if (tiNew instanceof MetaColumnTreeItem)

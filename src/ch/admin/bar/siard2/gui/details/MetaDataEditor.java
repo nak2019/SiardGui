@@ -498,6 +498,14 @@ public class MetaDataEditor
       displayProperty(MetaForeignKey.class,"UpdateAction",false,false,false);
       displayProperty(MetaForeignKey.class,"Description",true,true,false);
     }
+    else if (_oMetaData instanceof MetaTrigger)
+    {
+      displayProperty(MetaTrigger.class,"Name",false,false,false);
+      displayProperty(MetaTrigger.class,"ActionTime",false,false,false);
+      displayProperty(MetaTrigger.class,"TriggerEvent",false,false,false);
+      displayProperty(MetaTrigger.class,"TriggeredAction",false,false,false);
+      displayProperty(MetaTrigger.class,"Description",true,true,false);
+    }
     else if (_oMetaData instanceof MetaParameter)
     {
       displayProperty(MetaParameter.class,"Name",false,false,false);
