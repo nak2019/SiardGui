@@ -28,7 +28,6 @@ import ch.enterag.utils.fx.tasks.*;
 import ch.enterag.utils.io.*;
 import ch.enterag.utils.logging.*;
 import ch.admin.bar.siard2.api.*;
-import ch.admin.bar.siard2.api.primary.*;
 import ch.admin.bar.siard2.gui.actions.*;
 import ch.admin.bar.siard2.gui.dialogs.*;
 
@@ -372,10 +371,7 @@ public class SiardGui extends Application
    */
   public void openArchive(String sFile)
   {
-    swOpen.start();
     OpenSaveAction.newOpenSaveAction().open(sFile);
-    swOpen.stop();
-    logPerformance();
     setTitle();
     MainMenuBar.getMainMenuBar().restrict();
     MainPane.getMainPane().setArchive();
