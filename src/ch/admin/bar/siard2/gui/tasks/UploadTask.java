@@ -34,6 +34,7 @@ public class UploadTask
   private boolean _bMetaDataOnly = false;
   public boolean isMetaDataOnly() { return _bMetaDataOnly; }
   private MetaDataToDb _mdtd = null;
+  private MetaData _md = null;
   public MetaDataToDb getMetaDataToDb() { return _mdtd; }
 
   /*------------------------------------------------------------------*/

@@ -132,7 +132,7 @@ public class UploadDownloadAction
         try
         {
           Archive archive = ArchiveImpl.newInstance();
-          archive.create(fileArchive);
+          archive.create(fileArchive);          
           if (dcd.isMetaDataOnly())
             fileArchive.deleteOnExit();
           /* if there is a meta data only archive, use its meta data as a template */
@@ -261,6 +261,10 @@ public class UploadDownloadAction
       try
       {
         MetaDataToDb mdtd = MetaDataToDb.newInstance(conn.getMetaData(), archive.getMetaData(), ucd.getSchemasMap());
+        //mdtd._todb = UserProperties.getUserProperties().getDatabaseScheme().toUpperCase();
+        mdtd._todb = conn.getMetaData().getDatabaseProductName();
+        mdtd._ardb = archive.getMetaData().getDatabaseProduct().substring(0,6);
+        mdtd._cubrid = mdtd._todb.equals("CUBRID") && mdtd._ardb.equals("CUBRID");
         if (ucd.isOverwrite() || ((mdtd.tablesDroppedByUpload() == 0) && (mdtd.typesDroppedByUpload() == 0)))
           UploadDialog.showUploadDialog(stage,
             archive, conn, ucd.isMetaDataOnly(), mdtd);
